@@ -1,0 +1,45 @@
+plugins {
+    id "com.diffplug.gradle.spotless" version "3.23.0"
+    id "org.jetbrains.intellij" version "0.4.8"
+}
+
+// Apply the java-library plugin to add support for Java Library
+apply plugin: 'java-library'
+
+// In this section you declare where to find the dependencies of your project
+repositories {
+    jcenter()
+}
+
+dependencies {
+    // https://mvnrepository.com/artifact/commons-io/commons-io
+    compile group: 'commons-io', name: 'commons-io', version: '2.6'
+
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
+    compile group: 'org.apache.commons', name: 'commons-math3', version: '3.6.1'
+    compile 'com.google.guava:guava:23.0'
+    compile 'me.tongfei:progressbar:0.7.4'
+    testCompile group: 'org.assertj', name: 'assertj-core', version: '3.12.2'
+}
+
+task(runMining, dependsOn: 'classes', type: JavaExec) {
+    main = 'bok.DownloadEntryPoint'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+spotless {
+    java {
+        target 'src/**/*.java'
+        googleJavaFormat('1.6')
+        removeUnusedImports()
+        replaceRegex 'Bug in google format javadoc: https://github.com/google/google-java-format/issues/254', '  \\* (<p>)+', '  * <p>'
+    }
+}
+
+test {
+    beforeTest { descriptor ->
+        logger.lifecycle("Running test: ${descriptor.getClassName()} -> ${descriptor.getName()}")
+    }
+}
+
+apply plugin: 'org.jetbrains.intellij'
