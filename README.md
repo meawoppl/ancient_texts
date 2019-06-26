@@ -13,3 +13,16 @@ Copyright 2012 The Board of Trinity College Dublin. Images are available for sin
 application only. Publication, transmission or display is prohibited without formal written approval
 of Trinity College Library, Dublin.
 ```
+
+Usage
+=====
+
+```bash
+git clone git@github.com:meawoppl/ancient_texts.git
+cd ancient_texts
+
+./gradlew bookOfKells
+./gradlew bookOfArmagh
+./gradlew bookOfDurrow
+
+```
