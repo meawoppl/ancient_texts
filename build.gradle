@@ -23,13 +23,17 @@ dependencies {
 }
 
 task(bookOfKells, dependsOn: 'classes', type: JavaExec) {
-    main = 'bok.KellsEntryPoint'
+    main = 'bok.entry.KellsEP'
     classpath = sourceSets.main.runtimeClasspath
 }
 
-
 task(bookOfDurrow, dependsOn: 'classes', type: JavaExec) {
-    main = 'bok.DurrowEntryPoint'
+    main = 'bok.entry.DurrowEP'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task(bookOfArmagh, dependsOn: 'classes', type: JavaExec) {
+    main = 'bok.entry.ArmaghEP'
     classpath = sourceSets.main.runtimeClasspath
 }
 

@@ -1,7 +1,6 @@
 package bok.geometry;
 
 import bok.PureFuncs;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -46,10 +45,14 @@ public class Page {
     return new Tile(identifier, w, h, url);
   }
 
-  public List<Tile> getTiles() {
+  private void probePageSize() {
     if (pageSize == null) {
       pageSize = probeSize(template);
     }
+  }
+
+  public List<Tile> getTiles() {
+    probePageSize();
 
     ArrayList<Tile> tiles = new ArrayList<>();
     for (int w = 0; w < this.pageSize.width; w++) {

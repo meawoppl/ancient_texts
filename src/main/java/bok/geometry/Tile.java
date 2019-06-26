@@ -1,7 +1,6 @@
 package bok.geometry;
 
 import bok.PureFuncs;
-
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
@@ -26,7 +25,7 @@ public class Tile {
   public String getAddress() {
     return this.url.getPath();
   }
-  
+
   public BufferedImage getTile() throws IOException {
     return PureFuncs.urlToImage(this.url);
   }

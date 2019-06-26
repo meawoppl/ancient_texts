@@ -4,7 +4,12 @@ import bok.geometry.Page;
 import java.util.List;
 
 public abstract class AbstractPagination {
-  public abstract String getUrlBase();
+    public String getBookName() {
+        return "BookOf" + this.getClass().getSimpleName();
+    }
+
+
+    public abstract String getUrlBase();
 
   public abstract List<Page> pages();
 
