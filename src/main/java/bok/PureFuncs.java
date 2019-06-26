@@ -2,6 +2,7 @@ package bok;
 
 import bok.geometry.Page;
 import bok.geometry.Tile;
+import bok.pagination.AbstractPagination;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -14,8 +15,6 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import javax.imageio.ImageIO;
-
-import bok.pagination.AbstractPagination;
 import me.tongfei.progressbar.ProgressBar;
 
 public class PureFuncs {
@@ -76,7 +75,7 @@ public class PureFuncs {
   }
 
   public static void downloadPages(AbstractPagination pagination) {
-      List<Page> pages = pagination.pages();
+    List<Page> pages = pagination.pages();
     String folder = pagination.getBookName();
     File theDir = new File(pagination.getBookName());
     if (!theDir.exists()) {
@@ -88,17 +87,14 @@ public class PureFuncs {
       pages
           .stream()
           .parallel()
-          .filter((page) -> {
-              boolean downloaded = !page.getFile(folder).exists();
-              if(downloaded) pb.step();
-              return downloaded;
-          })
           .forEach(
               (page) -> {
-                File export = page.getFile(folder);
-                BufferedImage image = downloadAndStitch(page);
-                writeJPEG(image, export);
-                pb.step()
+                if (!page.getFile(folder).exists()) {
+                  File export = page.getFile(folder);
+                  BufferedImage image = downloadAndStitch(page);
+                  writeJPEG(image, export);
+                }
+                pb.step();
               });
     }
   }
