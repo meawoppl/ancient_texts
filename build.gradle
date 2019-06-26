@@ -22,10 +22,17 @@ dependencies {
     testCompile group: 'org.assertj', name: 'assertj-core', version: '3.12.2'
 }
 
-task(runMining, dependsOn: 'classes', type: JavaExec) {
-    main = 'bok.DownloadEntryPoint'
+task(bookOfKells, dependsOn: 'classes', type: JavaExec) {
+    main = 'bok.KellsEntryPoint'
     classpath = sourceSets.main.runtimeClasspath
 }
+
+
+task(bookOfDurrow, dependsOn: 'classes', type: JavaExec) {
+    main = 'bok.DurrowEntryPoint'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
 
 spotless {
     java {
